@@ -57,8 +57,4 @@ class NextDayTimePointView(View):
             'day': day,
             'sleep_seconds': sleep_seconds
             }
-        next_point = {
-            'day': 9,
-            'sleep_seconds': 10
-            }        
         return JsonResponse(next_point)
