@@ -1,0 +1,16 @@
+from environs import Env
+
+
+env = Env()
+env.read_env()
+
+
+SUMO_DATA_URL = env.str('SUMO_DATA_URL')
+TG_CHAT_ID = env.int('TG_CHAT_ID')
+TG_API_TOKEN = env.str('TG_API_TOKEN')
+
+
+REQUEST_ATTEMPTS_NUMBER = 10
+SECONDS_TO_SLEEP_BETWEEN_REQUESTS = 30
+
+BACKEND_NEXT_TIME_POINT_URL = env.str('BACKEND_NEXT_TIME_POINT_URL')

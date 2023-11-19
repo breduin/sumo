@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+
+  backend:
+    container_name: sw-backend
+    restart: always
+    build: ./backend
+    volumes:
+      - ./backend:/backend
+      - ./backend/static:/backend/static
+    command: sh -c "python3 manage.py runserver 0.0.0.0:9002"
+    env_file:
+      - ./backend/project_settings/.env
+    ports:
+      - "9002:9002"
+    networks:
+      - sw-network
+
+  sw:
+    container_name: sw-monitor
+    restart: always
+    build: ./sw
+    volumes:
+      - ./sw:/sw
+    command: sh -c "python3 main.py"
+    env_file:
+      - ./sw/.env
+    depends_on:
+      - backend
+    networks:
+      - sw-network
+
+networks:
+  sw-network:
+    driver: bridge
