@@ -9,11 +9,11 @@ services:
     volumes:
       - ./backend:/backend
       - ./backend/static:/backend/static
-    command: sh -c "python3 manage.py runserver 0.0.0.0:9002"
+    command: sh -c "python3 manage.py runserver 0.0.0.0:9100"
     env_file:
       - ./backend/project_settings/.env
     ports:
-      - "9002:9002"
+      - "9100:9100"
     networks:
       - sw-network
 
