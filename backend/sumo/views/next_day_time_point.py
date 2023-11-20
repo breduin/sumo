@@ -23,9 +23,17 @@ class Start:
 
     def __post_init__(self):
         self.tomorrow_at_7am = (
-        datetime.combine(self.now.date() + timedelta(days=1), time(7, 0)) - self.now
+            datetime.combine(
+                self.now.date() + timedelta(days=1),
+                time(7, 0, tzinfo=timezone(timedelta(hours=3)))
+                ) - self.now
         ).seconds
-        self.today_at_7am = (datetime.combine(self.now.date(), time(7, 0)) - self.now).seconds
+        self.today_at_7am = (
+            datetime.combine(
+                self.now.date(),
+                time(7, 0, tzinfo=timezone(timedelta(hours=3)))
+                ) - self.now
+                ).seconds
 
 
 def get_day_and_seconds(basho):
