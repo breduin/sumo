@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime, time, timedelta
+from datetime import datetime, time, timedelta, timezone
 
 from django.http import JsonResponse
 from django.views import View
@@ -30,7 +30,7 @@ class Start:
 
 def get_day_and_seconds(basho):
     '''Return day number and seconds number to next monitoring start.'''
-    now = datetime.now()
+    now = datetime.now(tz=timezone(timedelta(hours=3)))
     start = Start(now)
     basho_days_number = (basho.finish - basho.start).days + 1
     if not basho.start <= now <= basho.finish:  # ask again in one week
