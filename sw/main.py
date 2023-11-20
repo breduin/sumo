@@ -18,7 +18,11 @@ logger.add(
 async def main():
     while True:
         async with httpx.AsyncClient() as client:
-            r = await client.get(BACKEND_NEXT_TIME_POINT_URL)
+            try:
+                r = await client.get(BACKEND_NEXT_TIME_POINT_URL)
+            except httpx.ConnectError:
+                await asyncio.sleep(5)
+                continue
         if r.status_code != httpx.codes.OK:
             logger.error(f'Next time point request error {r.status_code}')
             await asyncio.sleep(30)
