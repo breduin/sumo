@@ -9,8 +9,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 @dataclass
 class Basho:
-    start = datetime.fromisoformat('2023-11-12T00:00:00+03:00')
-    finish = datetime.fromisoformat('2023-11-26T00:00:00+03:00')
+    start = datetime.fromisoformat('2024-01-14T00:00:00+03:00')
+    finish = datetime.fromisoformat('2024-01-28T00:00:00+03:00')
 
 
 @dataclass

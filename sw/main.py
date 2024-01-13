@@ -16,6 +16,7 @@ logger.add(
 
 
 async def main():
+    '''Ask backend for sleeping time and run daily monitoring.'''
     while True:
         async with httpx.AsyncClient() as client:
             try:
@@ -31,13 +32,15 @@ async def main():
         day = next_point['day']
         sleep_seconds = next_point['sleep_seconds']
         logger.info(f'Next monitoring starts in {sleep_seconds} seconds')
+
         await asyncio.sleep(sleep_seconds)
+
         await perform_daily_monitoring(day)
 
 
 if __name__ == "__main__":
     try:
-        logger.info('Bot started')
+        logger.info('Monitoring started')
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
-        logger.info('Bot stopped')
+        logger.info('Monitoring stopped')
