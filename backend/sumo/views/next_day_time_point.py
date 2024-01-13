@@ -35,15 +35,28 @@ class Start:
                 ) - self.now
                 ).seconds
 
+    def get_seconds_to_basho_start(self, start_date):
+        seconds = (
+            datetime.combine(
+                start_date.date(),
+                time(7, 0, tzinfo=timezone(timedelta(hours=3)))
+                ) - self.now
+        ).seconds
+        return seconds
+
 
 def get_day_and_seconds(basho):
     '''Return day number and seconds number to next monitoring start.'''
     now = datetime.now(tz=timezone(timedelta(hours=3)))
     start = Start(now)
     basho_days_number = (basho.finish - basho.start).days + 1
-    if not basho.start <= now <= basho.finish:  # ask again in one week
+
+    if now > basho.finish:
         day_number = -1
         return day_number, start.in_one_week
+    if now < basho.start:
+        day_number = -1
+        return day_number, start.get_seconds_to_basho_start(basho.start)
 
     day_number = (now - basho.start).days + 1
     if now.hour >= 12:
